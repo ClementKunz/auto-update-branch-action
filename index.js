@@ -48,7 +48,7 @@ async function updatePRs(mergeablePRs) {
         await axios.put(url.concat('/').concat(mergeablePRs[i]).concat('/update-branch'), {}, headers)
             .then(() => {
                 console.log('PR', mergeablePRs[i], 'updated!')
-                return
+                break;
             })
             .catch((error) => {
                 console.error('Error updating PR:', error)
