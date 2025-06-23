@@ -45,14 +45,17 @@ async function findMergeablePRs(autoMergePRs) {
 async function updatePRs(mergeablePRs) {
     for (let i = 0; i < mergeablePRs.length; i++) {
         console.log('Updating PR', mergeablePRs[i])
+        breakLoop = false;
         await axios.put(url.concat('/').concat(mergeablePRs[i]).concat('/update-branch'), {}, headers)
             .then(() => {
                 console.log('PR', mergeablePRs[i], 'updated!')
-                break;
+                breakLoop = true;
             })
             .catch((error) => {
                 console.error('Error updating PR:', error)
             })
+
+        if(breakLoop === true) break;
     }
 }
 
